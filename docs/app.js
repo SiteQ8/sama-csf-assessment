@@ -381,7 +381,7 @@ function renderDomainSelection() {
   
   const lang = appState.currentLang;
   const orgInput = document.getElementById('orgNameInput');
-  orgInput.placeholder = lang === 'ar' ? 'مثال: مصرف الراجحي' : 'Example: Al Rajhi Bank';
+  orgInput.placeholder = lang === 'ar' ? 'مثال: اسم المصرف' : 'Example: Bank Name';
   
   container.innerHTML = `
     <div class="assessment-option full-assessment" data-domain="all">
