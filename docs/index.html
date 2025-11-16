@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMA Cybersecurity Framework - Educational Assessment Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg class="brand-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="M9 12l2 2 4-4"></path>
+                </svg>
+                <span class="brand-text" data-en="SAMA CSF" data-ar="إطار عمل SAMA للأمن السيبراني">إطار عمل SAMA للأمن السيبراني</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#" class="nav-link active" data-page="home" data-en="Home" data-ar="الرئيسية">الرئيسية</a>
+                <a href="#" class="nav-link" data-page="overview" data-en="Framework" data-ar="الإطار">الإطار</a>
+                <a href="#" class="nav-link" data-page="assessment" data-en="Assessment" data-ar="التقييم">التقييم</a>
+                <a href="#" class="nav-link" data-page="mappings" data-en="Mappings" data-ar="الربط">الربط</a>
+                <a href="#" class="nav-link" data-page="resources" data-en="Resources" data-ar="المصادر">المصادر</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-icon" id="langToggle" title="Toggle Language">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                </button>
+                <button class="btn-icon" id="themeToggle" title="Toggle Dark Mode">
+                    <svg class="theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                    </svg>
+                    <svg class="theme-icon-dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div class="page active" id="homePage">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-badge" data-en="Educational Tool" data-ar="أداة تعليمية">أداة تعليمية</div>
+                        <h1 class="hero-title" data-en="SAMA Cybersecurity Framework Assessment" data-ar="تقييم إطار عمل SAMA للأمن السيبراني">تقييم إطار عمل SAMA للأمن السيبراني</h1>
+                        <p class="hero-subtitle" data-en="Learn and assess organizational maturity against Saudi Central Bank cybersecurity requirements" data-ar="تعلم وقيّم نضج المؤسسة مقابل متطلبات البنك المركزي السعودي للأمن السيبراني">تعلم وقيّم نضج المؤسسة مقابل متطلبات البنك المركزي السعودي للأمن السيبراني</p>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary btn-lg" id="startAssessmentBtn" data-en="Start Assessment" data-ar="ابدأ التقييم">ابدأ التقييم</button>
+                            <button class="btn btn-secondary btn-lg" id="learnMoreBtn" data-en="Learn Framework" data-ar="تعلم الإطار">تعلم الإطار</button>
+                        </div>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label" data-en="Domains" data-ar="مجالات">مجالات</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">29</div>
+                            <div class="stat-label" data-en="Controls" data-ar="ضوابط">ضوابط</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">114</div>
+                            <div class="stat-label" data-en="Sub-controls" data-ar="ضوابط فرعية">ضوابط فرعية</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">6</div>
+                            <div class="stat-label" data-en="Maturity Levels" data-ar="مستويات النضج">مستويات النضج</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Framework Cards -->
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title" data-en="Related Frameworks" data-ar="الأطر ذات الصلة">الأطر ذات الصلة</h2>
+                    <div class="framework-grid" id="frameworkGrid"></div>
+                </div>
+            </section>
+
+            <!-- Educational Disclaimer -->
+            <section class="section section-disclaimer">
+                <div class="container">
+                    <div class="disclaimer-card">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 16v-4m0-4h.01"></path>
+                        </svg>
+                        <div>
+                            <h3 data-en="Educational Purpose" data-ar="للأغراض التعليمية">للأغراض التعليمية</h3>
+                            <p data-en="This tool is designed for personal cybersecurity development and learning SAMA CSF requirements. It is not an official assessment tool and should not replace professional compliance audits." data-ar="تم تصميم هذه الأداة للتطوير الشخصي في الأمن السيبراني وتعلم متطلبات إطار عمل SAMA. هذه ليست أداة تقييم رسمية ولا ينبغي أن تحل محل عمليات التدقيق المهنية للامتثال.">تم تصميم هذه الأداة للتطوير الشخصي في الأمن السيبراني وتعلم متطلبات إطار عمل SAMA. هذه ليست أداة تقييم رسمية ولا ينبغي أن تحل محل عمليات التدقيق المهنية للامتثال.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Overview Page -->
+        <div class="page" id="overviewPage">
+            <section class="section">
+                <div class="container">
+                    <h1 class="page-title" data-en="Framework Overview" data-ar="نظرة عامة على الإطار">نظرة عامة على الإطار</h1>
+                    
+                    <!-- Maturity Pyramid -->
+                    <div class="maturity-pyramid" id="maturityPyramid"></div>
+
+                    <!-- Domains -->
+                    <h2 class="section-title" data-en="Four Core Domains" data-ar="المجالات الأربعة الأساسية">المجالات الأربعة الأساسية</h2>
+                    <div class="domains-grid" id="domainsGrid"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Assessment Page -->
+        <div class="page" id="assessmentPage">
+            <section class="section">
+                <div class="container">
+                    <!-- Domain Selection -->
+                    <div id="domainSelection" class="domain-selection">
+                        <h1 class="page-title" data-en="Start Assessment" data-ar="ابدأ التقييم">ابدأ التقييم</h1>
+                        <p class="page-subtitle" data-en="Select a domain to assess or take the full assessment" data-ar="اختر مجالاً للتقييم أو قم بالتقييم الكامل">اختر مجالاً للتقييم أو قم بالتقييم الكامل</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-en="Organization Name (Optional)" data-ar="اسم المؤسسة (اختياري)">اسم المؤسسة (اختياري)</label>
+                            <input type="text" class="form-control" id="orgNameInput" placeholder="">
+                        </div>
+
+                        <div class="assessment-options" id="assessmentOptions"></div>
+                    </div>
+
+                    <!-- Question Interface -->
+                    <div id="questionInterface" class="question-interface" style="display: none;">
+                        <div class="question-header">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="question-meta">
+                                <span id="questionNumber"></span>
+                                <span id="currentDomain"></span>
+                            </div>
+                        </div>
+
+                        <div class="question-content">
+                            <div class="question-main">
+                                <h2 class="question-text" id="questionText"></h2>
+                                <p class="question-subdomain" id="questionSubdomain"></p>
+                                
+                                <div class="maturity-selector" id="maturitySelector"></div>
+
+                                <div class="form-group">
+                                    <label class="form-label" data-en="Notes (Optional)" data-ar="ملاحظات (اختياري)">ملاحظات (اختياري)</label>
+                                    <textarea class="form-control" id="questionNotes" rows="3"></textarea>
+                                </div>
+
+                                <div class="question-actions">
+                                    <button class="btn btn-secondary" id="prevBtn" data-en="Previous" data-ar="السابق">السابق</button>
+                                    <button class="btn btn-primary" id="nextBtn" data-en="Next" data-ar="التالي">التالي</button>
+                                </div>
+                            </div>
+
+                            <div class="question-sidebar">
+                                <div class="sidebar-card">
+                                    <h3 data-en="Related Frameworks" data-ar="الأطر ذات الصلة">الأطر ذات الصلة</h3>
+                                    <div id="relatedFrameworks"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Results Page -->
+        <div class="page" id="resultsPage">
+            <section class="section">
+                <div class="container">
+                    <div class="results-header">
+                        <h1 class="page-title" data-en="Assessment Results" data-ar="نتائج التقييم">نتائج التقييم</h1>
+                        <button class="btn btn-primary" id="exportPdfBtn" data-en="Export PDF" data-ar="تصدير PDF">تصدير PDF</button>
+                    </div>
+
+                    <div class="results-overview">
+                        <div class="score-card overall-score" id="overallScore"></div>
+                        <div class="chart-container" style="height: 400px;">
+                            <canvas id="radarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="domain-scores" id="domainScores"></div>
+
+                    <div class="gap-analysis" id="gapAnalysis">
+                        <h2 class="section-title" data-en="Gap Analysis" data-ar="تحليل الفجوات">تحليل الفجوات</h2>
+                        <div id="gapList"></div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button class="btn btn-secondary" id="newAssessmentBtn" data-en="New Assessment" data-ar="تقييم جديد">تقييم جديد</button>
+                        <button class="btn btn-outline" id="viewMappingsBtn" data-en="View Mappings" data-ar="عرض الربط">عرض الربط</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Mappings Page -->
+        <div class="page" id="mappingsPage">
+            <section class="section">
+                <div class="container">
+                    <h1 class="page-title" data-en="Framework Mappings" data-ar="ربط الأطر">ربط الأطر</h1>
+                    
+                    <div class="mapping-filters">
+                        <div class="form-group">
+                            <label class="form-label" data-en="Filter by Framework" data-ar="تصفية حسب الإطار">تصفية حسب الإطار</label>
+                            <select class="form-control" id="frameworkFilter">
+                                <option value="all" data-en="All Frameworks" data-ar="جميع الأطر">جميع الأطر</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mapping-table" id="mappingTable"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Resources Page -->
+        <div class="page" id="resourcesPage">
+            <section class="section">
+                <div class="container">
+                    <h1 class="page-title" data-en="Learning Resources" data-ar="مصادر التعلم">مصادر التعلم</h1>
+                    
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <h3 data-en="Official Documentation" data-ar="الوثائق الرسمية">الوثائق الرسمية</h3>
+                            <ul>
+                                <li><a href="https://www.sama.gov.sa" target="_blank" data-en="SAMA Official Website" data-ar="الموقع الرسمي لساما">الموقع الرسمي لساما</a></li>
+                                <li><a href="https://www.nca.gov.sa" target="_blank" data-en="National Cybersecurity Authority" data-ar="الهيئة الوطنية للأمن السيبراني">الهيئة الوطنية للأمن السيبراني</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="resource-card">
+                            <h3 data-en="International Standards" data-ar="المعايير الدولية">المعايير الدولية</h3>
+                            <ul>
+                                <li><a href="https://www.iso.org/isoiec-27001-information-security.html" target="_blank">ISO/IEC 27001:2022</a></li>
+                                <li><a href="https://www.nist.gov/cyberframework" target="_blank">NIST Cybersecurity Framework 2.0</a></li>
+                                <li><a href="https://www.cisecurity.org/controls" target="_blank">CIS Controls v8.1</a></li>
+                                <li><a href="https://www.pcisecuritystandards.org" target="_blank">PCI-DSS v4.0.1</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="resource-card">
+                            <h3 data-en="Implementation Guides" data-ar="أدلة التطبيق">أدلة التطبيق</h3>
+                            <ul>
+                                <li data-en="How to achieve Level 3 maturity" data-ar="كيفية تحقيق مستوى النضج 3">كيفية تحقيق مستوى النضج 3</li>
+                                <li data-en="Risk assessment best practices" data-ar="أفضل ممارسات تقييم المخاطر">أفضل ممارسات تقييم المخاطر</li>
+                                <li data-en="Third-party security management" data-ar="إدارة أمن الأطراف الخارجية">إدارة أمن الأطراف الخارجية</li>
+                                <li data-en="Incident response planning" data-ar="تخطيط الاستجابة للحوادث">تخطيط الاستجابة للحوادث</li>
+                            </ul>
+                        </div>
+
+                        <div class="resource-card">
+                            <h3 data-en="Glossary" data-ar="المصطلحات">المصطلحات</h3>
+                            <div class="glossary-item">
+                                <strong data-en="Maturity Level" data-ar="مستوى النضج">مستوى النضج</strong>
+                                <p data-en="Degree of formality and optimization of processes" data-ar="درجة الرسمية والتحسين للعمليات">درجة الرسمية والتحسين للعمليات</p>
+                            </div>
+                            <div class="glossary-item">
+                                <strong>SIEM</strong>
+                                <p data-en="Security Information and Event Management" data-ar="إدارة معلومات وأحداث الأمان">إدارة معلومات وأحداث الأمان</p>
+                            </div>
+                            <div class="glossary-item">
+                                <strong data-en="Risk Treatment" data-ar="معالجة المخاطر">معالجة المخاطر</strong>
+                                <p data-en="Process of selecting and implementing measures to modify risk" data-ar="عملية اختيار وتنفيذ التدابير لتعديل المخاطر">عملية اختيار وتنفيذ التدابير لتعديل المخاطر</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-en="About This Tool" data-ar="عن هذه الأداة">عن هذه الأداة</h3>
+                    <p data-en="An educational tool for learning SAMA Cybersecurity Framework requirements and personal development in cybersecurity." data-ar="أداة تعليمية لتعلم متطلبات إطار عمل SAMA للأمن السيبراني والتطوير الشخصي في الأمن السيبراني.">أداة تعليمية لتعلم متطلبات إطار عمل SAMA للأمن السيبراني والتطوير الشخصي في الأمن السيبراني.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Version" data-ar="الإصدار">الإصدار</h3>
+                    <p>v1.0.0</p>
+                    <p data-en="Open Source on GitHub" data-ar="مفتوح المصدر على GitHub">مفتوح المصدر على GitHub</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Disclaimer" data-ar="إخلاء مسؤولية">إخلاء مسؤولية</h3>
+                    <p data-en="Not an official SAMA tool. For educational purposes only." data-ar="ليست أداة رسمية من SAMA. للأغراض التعليمية فقط.">ليست أداة رسمية من SAMA. للأغراض التعليمية فقط.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SAMA CSF Educational Tool. <span data-en="Made for cybersecurity professionals" data-ar="صُنعت لمحترفي الأمن السيبراني">صُنعت لمحترفي الأمن السيبراني</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
