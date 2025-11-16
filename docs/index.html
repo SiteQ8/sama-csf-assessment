@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAMA CSF Assessment Tool v2.0</title>
+    <title>SAMA CSF Professional Assessment Tool v2.0</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,6 +26,7 @@
                 <a href="#" class="nav-link" data-page="assessment" data-en="Assessment" data-ar="التقييم">التقييم</a>
                 <a href="#" class="nav-link" data-page="mappings" data-en="Mappings" data-ar="الربط">الربط</a>
                 <a href="#" class="nav-link" data-page="resources" data-en="Resources" data-ar="المصادر">المصادر</a>
+                <a href="#" class="nav-link" data-page="reports" data-en="Reports" data-ar="التقارير">التقارير</a>
             </div>
             <div class="nav-actions">
                 <button class="btn-icon" id="langToggle" title="Toggle Language">
@@ -51,12 +52,27 @@
     <main class="main-content">
         <!-- Home Page -->
         <div class="page active" id="homePage">
+            <!-- Educational Disclaimer Banner -->
+            <section class="section-disclaimer" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(230, 129, 97, 0.1)); padding: var(--space-xl) 0; border-bottom: 2px solid rgba(212, 175, 55, 0.3);">
+                <div class="container">
+                    <div class="disclaimer-card" style="flex-direction: column; text-align: center;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin: 0 auto var(--space-md);">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <h3 data-en="Educational Purpose Notice" data-ar="للأغراض التعليمية">للأغراض التعليمية</h3>
+                        <p data-en="This tool is designed for personal development in cybersecurity and learning SAMA Cybersecurity Framework requirements. This is NOT an official assessment tool and should NOT replace professional compliance audits conducted by qualified experts." data-ar="تم تصميم هذه الأداة للتطوير الشخصي في الأمن السيبراني وتعلم متطلبات إطار عمل SAMA، هذه ليست أداة تقييم رسمية ولا ينبغي أن تحل محل عمليات التدقيق المهنية للامتثال.">تم تصميم هذه الأداة للتطوير الشخصي في الأمن السيبراني وتعلم متطلبات إطار عمل SAMA، هذه ليست أداة تقييم رسمية ولا ينبغي أن تحل محل عمليات التدقيق المهنية للامتثال.</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- Hero Section -->
             <section class="hero">
                 <div class="container">
                     <div class="hero-content">
                         <div class="hero-badge" data-en="Educational Tool" data-ar="أداة تعليمية">أداة تعليمية</div>
-                        <h1 class="hero-title" data-en="SAMA Cybersecurity Framework Assessment" data-ar="أداة تقييم إطار عمل SAMA للأمن السيبراني">أداة تقييم إطار عمل SAMA للأمن السيبراني</h1>
+                        <h1 class="hero-title" data-en="SAMA Cybersecurity Framework Assessment" data-ar="تقييم إطار عمل SAMA للأمن السيبراني">تقييم إطار عمل SAMA للأمن السيبراني</h1>
                         <p class="hero-subtitle" data-en="Learn and assess organizational maturity against Saudi Central Bank cybersecurity requirements" data-ar="تعلم وقيّم نضج المؤسسة مقابل متطلبات البنك المركزي السعودي للأمن السيبراني">تعلم وقيّم نضج المؤسسة مقابل متطلبات البنك المركزي السعودي للأمن السيبراني</p>
                         <div class="hero-actions">
                             <button class="btn btn-primary btn-lg" id="startAssessmentBtn" data-en="Start Assessment" data-ar="ابدأ التقييم">ابدأ التقييم</button>
@@ -91,23 +107,6 @@
                     <div class="framework-grid" id="frameworkGrid"></div>
                 </div>
             </section>
-<!-- Educational Disclaimer -->
-            <section class="section section-disclaimer">
-                <div class="container">
-                    <div class="disclaimer-card">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M12 16v-4m0-4h.01"></path>
-                        </svg>
-                        <div>
-                            <h3 data-en="Educational Purpose" data-ar="للأغراض التعليمية">للأغراض التعليمية</h3>
-                            <p data-en="This tool is designed for personal cybersecurity development and learning SAMA CSF requirements. It is not an official assessment tool and should not replace professional compliance audits." data-ar="تم تصميم هذه الأداة للتطوير الشخصي في الأمن السيبراني وتعلم متطلبات إطار عمل SAMA، هذه ليست أداة تقييم رسمية ولا ينبغي أن تحل محل عمليات التدقيق المهنية للامتثال.">تم تصميم هذه الأداة للتطوير الشخصي في الأمن السيبراني وتعلم متطلبات إطار عمل SAMA. هذه ليست أداة تقييم رسمية ولا ينبغي أن تحل محل عمليات التدقيق المهنية للامتثال.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
 
             <!-- Assessment Modes -->
             <section class="section">
@@ -311,6 +310,32 @@
                 </div>
             </section>
         </div>
+
+        <!-- Reports Page -->
+        <div class="page" id="reportsPage">
+            <section class="section">
+                <div class="container">
+                    <h1 class="page-title" data-en="Comprehensive Reports" data-ar="تقارير شاملة">تقارير شاملة</h1>
+                    <div class="report-summary">
+                        <h2 class="section-title" data-en="Executive Summary" data-ar="الملخص التنفيذي">الملخص التنفيذي</h2>
+                        <div id="execSummary"></div>
+                    </div>
+                    <div class="report-details">
+                        <h2 class="section-title" data-en="Assessment by Domain" data-ar="التقييم حسب المجال">التقييم حسب المجال</h2>
+                        <div id="reportDomainDetails"></div>
+                        <h2 class="section-title" data-en="Gap Analysis & Recommendations" data-ar="تحليل الفجوات والتوصيات">تحليل الفجوات والتوصيات</h2>
+                        <div id="reportGapAnalysis"></div>
+                    </div>
+                    <div class="report-mappings">
+                        <h2 class="section-title" data-en="Framework Mappings" data-ar="ربط الأطر">ربط الأطر</h2>
+                        <div id="reportMappings"></div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="btn btn-primary" id="exportReportPdfBtn" data-en="Export PDF Report" data-ar="تصدير التقرير PDF">تصدير التقرير PDF</button>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -327,12 +352,12 @@
                     <p data-en="Open Source on GitHub" data-ar="مفتوح المصدر على GitHub">مفتوح المصدر على GitHub</p>
                 </div>
                 <div class="footer-section">
-                    <h3 data-en="Disclaimer" data-ar="إخلاء مسؤولية">إخلاء مسؤولية</h3>
-                    <p data-en="Not an official SAMA tool. For educational purposes only." data-ar="ليست أداة رسمية من SAMA. للأغراض التعليمية فقط.">ليست أداة رسمية من SAMA. للأغراض التعليمية فقط.</p>
+                    <h3 data-en="Educational Disclaimer" data-ar="إخلاء مسؤولية تعليمية">إخلاء مسؤولية تعليمية</h3>
+                    <p data-en="This tool is designed for personal development in cybersecurity and learning SAMA Cybersecurity Framework requirements. This is NOT an official assessment tool and should NOT replace professional compliance audits conducted by qualified experts." data-ar="تم تصميم هذه الأداة للتطوير الشخصي في الأمن السيبراني وتعلم متطلبات إطار عمل SAMA، هذه ليست أداة تقييم رسمية ولا ينبغي أن تحل محل عمليات التدقيق المهنية للامتثال.">تم تصميم هذه الأداة للتطوير الشخصي في الأمن السيبراني وتعلم متطلبات إطار عمل SAMA، هذه ليست أداة تقييم رسمية ولا ينبغي أن تحل محل عمليات التدقيق المهنية للامتثال.</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 SAMA CSF Educational Tool. <span data-en="Made for cybersecurity professionals" data-ar="صنعت لمحترفي الأمن السيبراني">صنعت لمحترفي الأمن السيبراني</span></p>
+                <p>&copy; 2025 SAMA CSF Educational Tool. <span data-en="Made for cybersecurity professionals" data-ar="صُنعت لمحترفي الأمن السيبراني">صُنعت لمحترفي الأمن السيبراني</span></p>
             </div>
         </div>
     </footer>

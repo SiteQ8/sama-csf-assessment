@@ -137,8 +137,8 @@ const frameworkData = {
     }
   ],
   questions: [
-    {q_id: 'Q1.1', domain: 'D1', subdomain: '3.1.1 - Cybersecurity Strategy', question_ar: 'هل لديكم استراتيجية أمن سيبراني موثقة وموافق عليها من مجلس الإدارة مع أهداف واضحة؟', question_en: 'Is there a documented cybersecurity strategy approved by the board with clear objectives?', frameworks: ['ISO 27001: A.5.1', 'NIST CSF: GV.OC-01', 'CIS Control 1']},
-    {q_id: 'Q1.2', domain: 'D1', subdomain: '3.1.1 - Cybersecurity Strategy', question_ar: 'هل يتم مراجعة استراتيجية الأمن السيبراني بشكل دوري (على الأقل سنوياً) لضمان توافقها مع التهديدات الحالية؟', question_en: 'Is the cybersecurity strategy reviewed periodically (at least annually) to ensure alignment with current threats?', frameworks: ['ISO 27001: A.5.1', 'NIST CSF: GV.OC-02']},
+    {q_id: 'Q1.1', domain: 'D1', subdomain: '3.1.1 - Cybersecurity Strategy', question_ar: 'هل لديكم استراتيجية أمن سيبراني موثقة وموافق عليها من مجلس الإدارة مع أهداف واضحة؟', question_en: 'Is there a documented cybersecurity strategy approved by the board with clear objectives?', frameworks: ['ISO 27001: A.5.1', 'NIST CSF: GV.OC-01', 'CIS Control 1'], guidance_ar: 'يجب أن تتضمن الاستراتيجية النطاق والشهية للمخاطر وتخصيص الموارد والتوافق مع أهداف الأعمال', guidance_en: 'Strategy must include scope, risk appetite, resource allocation, and alignment with business objectives'},
+    {q_id: 'Q1.2', domain: 'D1', subdomain: '3.1.1 - Cybersecurity Strategy', question_ar: 'هل يتم مراجعة استراتيجية الأمن السيبراني بشكل دوري (على الأقل سنوياً) لضمان توافقها مع التهديدات الحالية؟', question_en: 'Is the cybersecurity strategy reviewed periodically (at least annually) to ensure alignment with current threats?', frameworks: ['ISO 27001: A.5.1', 'NIST CSF: GV.OC-02'], guidance_ar: 'المراجعة السنوية إلزامية لضمان مواكبة التهديدات والتغييرات التنظيمية', guidance_en: 'Annual review is mandatory to ensure alignment with evolving threats and organizational changes'},
     {q_id: 'Q1.3', domain: 'D1', subdomain: '3.1.2 - Cybersecurity Policy', question_ar: 'هل توجد سياسة أمن سيبراني شاملة موثقة رسمياً وموزعة على جميع الموظفين مع تتبع الإقرار؟', question_en: 'Is there a comprehensive cybersecurity policy formally documented and distributed to all employees with acknowledgment tracking?', frameworks: ['ISO 27001: A.5.2', 'NIST CSF: GV.PO-01', 'CIS Control 1']},
     {q_id: 'Q1.4', domain: 'D1', subdomain: '3.1.2 - Cybersecurity Policy', question_ar: 'هل السياسة تتضمن متطلبات محددة للمصادقة والتشفير والحماية من الأخطار؟', question_en: 'Does the policy include specific requirements for authentication, encryption, and threat protection?', frameworks: ['ISO 27001: A.5.2', 'CIS Control 3, 6']},
     {q_id: 'Q1.5', domain: 'D1', subdomain: '3.1.2 - Cybersecurity Policy', question_ar: 'هل هناك عملية محددة لمعالجة استثناءات السياسة مع موافقات وتوثيق؟', question_en: 'Is there a defined process for policy exceptions with approvals and documentation?', frameworks: ['ISO 27001: A.5.2']},
@@ -222,6 +222,20 @@ function setupEventListeners() {
     });
   });
   
+  // Results Page buttons
+  const exportBtn = document.getElementById('exportPdfBtn');
+  const newAssessmentBtnEl = document.getElementById('newAssessmentBtn');
+  const viewMappingsBtnEl = document.getElementById('viewMappingsBtn');
+  const exportReportBtn = document.getElementById('exportReportPdfBtn');
+  
+  if (exportBtn) exportBtn.addEventListener('click', exportToPDF);
+  if (newAssessmentBtnEl) newAssessmentBtnEl.addEventListener('click', () => {
+    appState.assessmentData.currentDomain = null;
+    navigateToPage('assessment');
+  });
+  if (viewMappingsBtnEl) viewMappingsBtnEl.addEventListener('click', () => navigateToPage('mappings'));
+  if (exportReportBtn) exportReportBtn.addEventListener('click', exportToPDF);
+  
   // Home page buttons
   document.getElementById('startAssessmentBtn').addEventListener('click', () => navigateToPage('assessment'));
   document.getElementById('learnMoreBtn').addEventListener('click', () => navigateToPage('overview'));
@@ -296,6 +310,9 @@ function navigateToPage(pageName) {
       break;
     case 'mappings':
       renderMappingsPage();
+      break;
+    case 'reports':
+      renderReportsPage();
       break;
     case 'resources':
       // Static content, no rendering needed
@@ -381,7 +398,7 @@ function renderDomainSelection() {
   
   const lang = appState.currentLang;
   const orgInput = document.getElementById('orgNameInput');
-  orgInput.placeholder = lang === 'ar' ? 'مثال: اسم المصرف' : 'Example: Bank Name';
+  orgInput.placeholder = lang === 'ar' ? 'مثال: مصرف الراجحي' : 'Example: Al Rajhi Bank';
   
   container.innerHTML = `
     <div class="assessment-option full-assessment" data-domain="all">
@@ -415,6 +432,7 @@ function startAssessment(domain) {
   appState.assessmentData.currentDomain = domain;
   appState.assessmentData.currentQuestionIndex = 0;
   appState.assessmentData.responses = {};
+  appState.assessmentData.questionsArray = null; // Reset to rebuild
   
   // Start timer
   appState.assessmentData.startTime = new Date();
@@ -423,22 +441,27 @@ function startAssessment(domain) {
 }
 
 function renderQuestion() {
-  let questions;
+  const lang = appState.currentLang;
   
-  if (appState.assessmentData.currentDomain === 'all') {
-    questions = frameworkData.questions;
-  } else if (appState.assessmentData.currentDomain === 'quick') {
-    // Quick assessment: 4 questions per domain (16 total)
-    questions = [
-      frameworkData.questions[0], frameworkData.questions[2], frameworkData.questions[5], frameworkData.questions[8],  // D1
-      frameworkData.questions[15], frameworkData.questions[16], frameworkData.questions[20], frameworkData.questions[23], // D2
-      frameworkData.questions[30], frameworkData.questions[31], frameworkData.questions[36], frameworkData.questions[44], // D3
-      frameworkData.questions[50], frameworkData.questions[52], frameworkData.questions[54], frameworkData.questions[56]  // D4
-    ];
-  } else {
-    questions = frameworkData.questions.filter(q => q.domain === appState.assessmentData.currentDomain);
+  // Build questions array based on assessment mode
+  if (!appState.assessmentData.questionsArray) {
+    const domain = appState.assessmentData.currentDomain;
+    if (domain === 'all') {
+      appState.assessmentData.questionsArray = frameworkData.questions;
+    } else if (domain === 'quick') {
+      // Quick assessment: first 4 questions from each domain
+      appState.assessmentData.questionsArray = [];
+      frameworkData.domains.forEach(d => {
+        const domainQuestions = frameworkData.questions.filter(q => q.domain === d.domain_id).slice(0, 4);
+        appState.assessmentData.questionsArray.push(...domainQuestions);
+      });
+    } else {
+      // Domain-specific
+      appState.assessmentData.questionsArray = frameworkData.questions.filter(q => q.domain === domain);
+    }
   }
   
+  const questions = appState.assessmentData.questionsArray;
   const currentIndex = appState.assessmentData.currentQuestionIndex;
   const question = questions[currentIndex];
   
@@ -447,62 +470,80 @@ function renderQuestion() {
     return;
   }
   
-  const lang = appState.currentLang;
-  const domain = frameworkData.domains.find(d => d.domain_id === question.domain);
-  
   // Update progress
   const progress = ((currentIndex + 1) / questions.length) * 100;
   document.getElementById('progressFill').style.width = progress + '%';
+  
+  // Update question metadata
   document.getElementById('questionNumber').textContent = `${lang === 'ar' ? 'السؤال' : 'Question'} ${currentIndex + 1} ${lang === 'ar' ? 'من' : 'of'} ${questions.length}`;
+  
+  const domain = frameworkData.domains.find(d => d.domain_id === question.domain);
   document.getElementById('currentDomain').textContent = lang === 'ar' ? domain.name_ar : domain.name_en;
   
-  // Update question
+  // Update question text
   document.getElementById('questionText').textContent = lang === 'ar' ? question.question_ar : question.question_en;
   document.getElementById('questionSubdomain').textContent = question.subdomain;
   
-  // Render maturity selector
-  const selector = document.getElementById('maturitySelector');
-  selector.innerHTML = frameworkData.maturityLevels.map(level => {
-    const saved = appState.assessmentData.responses[question.q_id];
-    const checked = saved && saved.maturityLevel === level.level ? 'checked' : '';
-    return `
-      <div class="maturity-option ${checked ? 'selected' : ''}" data-level="${level.level}">
-        <input type="radio" name="maturity" value="${level.level}" ${checked} id="level${level.level}">
-        <label for="level${level.level}" class="maturity-option-content">
-          <div class="maturity-option-header">
-            <span class="maturity-option-level" style="color: ${level.color}">${level.level}</span>
-            <span class="maturity-option-name">${lang === 'ar' ? level.name_ar : level.name_en}</span>
-          </div>
-          <div class="maturity-option-desc">${lang === 'ar' ? level.description_ar : level.description_en}</div>
-        </label>
+  // Render maturity options
+  const maturitySelector = document.getElementById('maturitySelector');
+  maturitySelector.innerHTML = frameworkData.maturityLevels.map(level => `
+    <div class="maturity-option" data-level="${level.level}">
+      <input type="radio" name="maturity" value="${level.level}" id="maturity-${level.level}">
+      <div class="maturity-option-content">
+        <div class="maturity-option-header">
+          <label for="maturity-${level.level}" class="maturity-option-level" style="color: ${level.color};">${level.level}</label>
+          <label for="maturity-${level.level}" class="maturity-option-name">${lang === 'ar' ? level.name_ar : level.name_en}</label>
+        </div>
+        <div class="maturity-option-desc">${lang === 'ar' ? level.description_ar : level.description_en}</div>
       </div>
-    `;
-  }).join('');
+    </div>
+  `).join('');
   
-  // Add selection handlers
-  selector.querySelectorAll('.maturity-option').forEach(option => {
+  // Add click handlers for maturity options
+  maturitySelector.querySelectorAll('.maturity-option').forEach(option => {
     option.addEventListener('click', function() {
-      selector.querySelectorAll('.maturity-option').forEach(o => o.classList.remove('selected'));
+      const radio = this.querySelector('input[type="radio"]');
+      radio.checked = true;
+      maturitySelector.querySelectorAll('.maturity-option').forEach(opt => opt.classList.remove('selected'));
       this.classList.add('selected');
-      this.querySelector('input[type="radio"]').checked = true;
     });
   });
   
-  // Related frameworks
-  document.getElementById('relatedFrameworks').innerHTML = `
-    <ul>
-      ${question.frameworks.map(fw => `<li>${fw}</li>`).join('')}
-    </ul>
-  `;
+  // Restore previous response if exists
+  const previousResponse = appState.assessmentData.responses[question.q_id];
+  if (previousResponse) {
+    const radio = document.querySelector(`input[name="maturity"][value="${previousResponse.maturityLevel}"]`);
+    if (radio) {
+      radio.checked = true;
+      radio.closest('.maturity-option').classList.add('selected');
+    }
+    document.getElementById('questionNotes').value = previousResponse.notes || '';
+  } else {
+    document.getElementById('questionNotes').value = '';
+  }
   
-  // Navigation buttons
-  document.getElementById('prevBtn').disabled = currentIndex === 0;
-  document.getElementById('prevBtn').addEventListener('click', () => previousQuestion());
-  document.getElementById('nextBtn').addEventListener('click', () => nextQuestion());
+  // Update related frameworks
+  const relatedFrameworks = document.getElementById('relatedFrameworks');
+  relatedFrameworks.innerHTML = '<ul style="list-style: none; padding: 0; margin: 0;">' + 
+    question.frameworks.map(fw => `<li style="padding: var(--space-sm) 0; border-bottom: 1px solid var(--color-border); font-size: 0.875rem;">${fw}</li>`).join('') + 
+    '</ul>';
   
-  // Load saved notes
-  const saved = appState.assessmentData.responses[question.q_id];
-  document.getElementById('questionNotes').value = saved ? saved.notes || '' : '';
+  // Update button states
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  
+  prevBtn.disabled = currentIndex === 0;
+  prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+  
+  if (currentIndex === questions.length - 1) {
+    nextBtn.textContent = lang === 'ar' ? 'إرسال التقييم' : 'Submit Assessment';
+    nextBtn.onclick = showResults;
+  } else {
+    nextBtn.textContent = lang === 'ar' ? 'التالي' : 'Next';
+    nextBtn.onclick = nextQuestion;
+  }
+  
+  prevBtn.onclick = previousQuestion;
 }
 
 function nextQuestion() {
@@ -518,11 +559,10 @@ function previousQuestion() {
 }
 
 function saveCurrentResponse() {
-  const questions = appState.assessmentData.currentDomain === 'all' 
-    ? frameworkData.questions
-    : frameworkData.questions.filter(q => q.domain === appState.assessmentData.currentDomain);
-  
+  const questions = appState.assessmentData.questionsArray || frameworkData.questions;
   const question = questions[appState.assessmentData.currentQuestionIndex];
+  if (!question) return;
+  
   const selected = document.querySelector('input[name="maturity"]:checked');
   const notes = document.getElementById('questionNotes').value;
   
@@ -568,6 +608,8 @@ function renderResults() {
   
   // Overall score
   const overallContainer = document.getElementById('overallScore');
+  if (!overallContainer) return;
+  
   const overallScore = scores.overall;
   const status = overallScore >= 3 ? 'success' : overallScore >= 2 ? 'warning' : 'danger';
   const statusText = overallScore >= 3 ? 
@@ -585,16 +627,18 @@ function renderResults() {
   
   // Domain scores
   const domainScoresContainer = document.getElementById('domainScores');
-  domainScoresContainer.innerHTML = frameworkData.domains.map(domain => {
-    const score = scores[domain.domain_id] || 0;
-    const color = score >= 3 ? '#059669' : score >= 2 ? '#d97706' : '#dc2626';
-    return `
-      <div class="score-card">
-        <div class="score-value" style="color: ${color}">${score.toFixed(1)}</div>
-        <div class="score-label">${lang === 'ar' ? domain.name_ar : domain.name_en}</div>
-      </div>
-    `;
-  }).join('');
+  if (domainScoresContainer) {
+    domainScoresContainer.innerHTML = frameworkData.domains.map(domain => {
+      const score = scores[domain.domain_id] || 0;
+      const color = score >= 3 ? '#059669' : score >= 2 ? '#d97706' : '#dc2626';
+      return `
+        <div class="score-card">
+          <div class="score-value" style="color: ${color}">${score.toFixed(1)}</div>
+          <div class="score-label">${lang === 'ar' ? domain.name_ar : domain.name_en}</div>
+        </div>
+      `;
+    }).join('');
+  }
   
   // Radar chart
   renderRadarChart();
@@ -604,14 +648,6 @@ function renderResults() {
   
   // Heatmap
   renderHeatmap();
-  
-  // Export button
-  document.getElementById('exportPdfBtn').addEventListener('click', exportToPDF);
-  document.getElementById('newAssessmentBtn').addEventListener('click', () => {
-    appState.assessmentData.currentDomain = null;
-    navigateToPage('assessment');
-  });
-  document.getElementById('viewMappingsBtn').addEventListener('click', () => navigateToPage('mappings'));
 }
 
 function renderRadarChart() {
@@ -708,6 +744,15 @@ function renderGapAnalysis() {
 }
 
 function renderHeatmap() {
+  const gapSection = document.getElementById('gapAnalysis');
+  if (!gapSection) return;
+  
+  // Check if heatmap already exists
+  const existingHeatmap = document.querySelector('.heatmap-container');
+  if (existingHeatmap) {
+    existingHeatmap.remove();
+  }
+  
   const heatmapContainer = document.createElement('div');
   heatmapContainer.className = 'heatmap-container';
   heatmapContainer.style.cssText = 'margin-top: var(--space-2xl); padding: var(--space-xl); background: var(--color-bg-surface); border-radius: var(--radius-lg); border: 1px solid var(--color-border);';
@@ -720,7 +765,6 @@ function renderHeatmap() {
     <div id="heatmapGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--space-sm);"></div>
   `;
   
-  const gapSection = document.getElementById('gapAnalysis');
   gapSection.parentNode.insertBefore(heatmapContainer, gapSection);
   
   const grid = document.getElementById('heatmapGrid');
@@ -740,6 +784,90 @@ function renderHeatmap() {
       grid.appendChild(cell);
     }
   });
+}
+
+function renderReportsPage() {
+  const lang = appState.currentLang;
+  const scores = appState.assessmentData.scores;
+  const responses = appState.assessmentData.responses;
+  
+  if (!scores || !scores.overall) {
+    document.getElementById('execSummary').innerHTML = `<p style="text-align: center; color: var(--color-text-secondary);">${lang === 'ar' ? 'لم يتم إجراء تقييم بعد' : 'No assessment completed yet'}</p>`;
+    return;
+  }
+  
+  // Executive Summary
+  const overallScore = scores.overall;
+  const statusColor = overallScore >= 3 ? '#059669' : overallScore >= 2 ? '#d97706' : '#dc2626';
+  document.getElementById('execSummary').innerHTML = `
+    <div class="report-summary-card" style="background: var(--color-bg-surface); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid var(--color-border); margin-bottom: var(--space-xl);">
+      <h3>${lang === 'ar' ? 'النتيجة الإجمالية' : 'Overall Result'}</h3>
+      <div style="font-size: 3rem; font-weight: 700; color: ${statusColor}; margin: var(--space-md) 0;">${overallScore.toFixed(1)}/5</div>
+      <p>${lang === 'ar' ? 'المؤسسة:' : 'Organization:'} ${appState.assessmentData.organizationName || (lang === 'ar' ? 'غير محدد' : 'Not Specified')}</p>
+      <p>${lang === 'ar' ? 'التاريخ:' : 'Date:'} ${new Date().toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US')}</p>
+      <p>${lang === 'ar' ? 'عدد الأسئلة المجاب عليها:' : 'Questions Answered:'} ${Object.keys(responses).length}</p>
+    </div>
+  `;
+  
+  // Domain Details
+  document.getElementById('reportDomainDetails').innerHTML = frameworkData.domains.map(domain => {
+    const score = scores[domain.domain_id] || 0;
+    const color = score >= 3 ? '#059669' : score >= 2 ? '#d97706' : '#dc2626';
+    const domainQuestions = frameworkData.questions.filter(q => q.domain === domain.domain_id);
+    const answeredQuestions = domainQuestions.filter(q => responses[q.q_id]);
+    
+    return `
+      <div class="domain-detail" style="background: var(--color-bg-surface); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid var(--color-border); margin-bottom: var(--space-lg);">
+        <h3>${lang === 'ar' ? domain.name_ar : domain.name_en}</h3>
+        <div style="font-size: 2rem; font-weight: 700; color: ${color}; margin: var(--space-md) 0;">${score.toFixed(1)}/5</div>
+        <p>${lang === 'ar' ? 'عدد الأسئلة:' : 'Questions:'} ${answeredQuestions.length}/${domainQuestions.length}</p>
+        <p>${lang === 'ar' ? domain.description_ar : domain.description_en}</p>
+      </div>
+    `;
+  }).join('');
+  
+  // Gap Analysis
+  const gaps = frameworkData.questions.filter(q => {
+    const response = responses[q.q_id];
+    return response && response.maturityLevel < 3;
+  });
+  
+  if (gaps.length === 0) {
+    document.getElementById('reportGapAnalysis').innerHTML = `<p style="text-align: center; color: var(--color-success);">${lang === 'ar' ? 'ممتاز! جميع الضوابط تحقق الحد الأدنى المطلوب' : 'Excellent! All controls meet the minimum requirement'}</p>`;
+  } else {
+    gaps.sort((a, b) => {
+      const scoreA = responses[a.q_id].maturityLevel;
+      const scoreB = responses[b.q_id].maturityLevel;
+      return scoreA - scoreB;
+    });
+    
+    document.getElementById('reportGapAnalysis').innerHTML = gaps.map(q => {
+      const response = responses[q.q_id];
+      const domain = frameworkData.domains.find(d => d.domain_id === q.domain);
+      const priority = response.maturityLevel === 0 ? 'Critical' : response.maturityLevel === 1 ? 'High' : 'Medium';
+      const priorityAr = response.maturityLevel === 0 ? 'حرج' : response.maturityLevel === 1 ? 'عالي' : 'متوسط';
+      const priorityColor = response.maturityLevel === 0 ? '#dc2626' : response.maturityLevel === 1 ? '#ea580c' : '#d97706';
+      
+      return `
+        <div class="gap-item" style="margin-bottom: var(--space-lg); padding: var(--space-lg); background: var(--color-bg-surface); border-left: 4px solid ${priorityColor}; border-radius: var(--radius-md);">
+          <h4>${lang === 'ar' ? q.question_ar : q.question_en}</h4>
+          <p><strong>${lang === 'ar' ? 'المجال:' : 'Domain:'}</strong> ${lang === 'ar' ? domain.name_ar : domain.name_en}</p>
+          <p><strong>${lang === 'ar' ? 'الأولوية:' : 'Priority:'}</strong> <span style="color: ${priorityColor}; font-weight: 600;">${lang === 'ar' ? priorityAr : priority}</span></p>
+          <p><strong>${lang === 'ar' ? 'المستوى الحالي:' : 'Current Level:'}</strong> ${response.maturityLevel} | <strong>${lang === 'ar' ? 'المطلوب:' : 'Required:'}</strong> 3</p>
+          <p><strong>${lang === 'ar' ? 'أطر ذات صلة:' : 'Related Frameworks:'}</strong> ${q.frameworks.join(', ')}</p>
+        </div>
+      `;
+    }).join('');
+  }
+  
+  // Framework Mappings Summary
+  document.getElementById('reportMappings').innerHTML = frameworkData.relatedFrameworks.map(fw => `
+    <div class="mapping-summary" style="background: var(--color-bg-surface); padding: var(--space-lg); border-radius: var(--radius-md); border: 1px solid var(--color-border); margin-bottom: var(--space-md);">
+      <h3>${fw.name}</h3>
+      <p>${lang === 'ar' ? fw.description_ar : fw.description_en}</p>
+      <p style="font-size: 0.875rem; color: var(--color-text-secondary);"><strong>${lang === 'ar' ? 'التوافق:' : 'Alignment:'}</strong> ${fw.alignment}</p>
+    </div>
+  `).join('');
 }
 
 function renderMappingsPage() {
@@ -836,6 +964,12 @@ function exportToPDF() {
     console.error('PDF generation error:', error);
     alert(lang === 'ar' ? '\u062e\u0637\u0623 \u0641\u064a \u0625\u0646\u0634\u0627\u0621 PDF' : 'Error generating PDF');
   }
+}
+
+// Auto-save functionality
+function autoSaveProgress() {
+  // In-memory state only (no localStorage due to sandbox restrictions)
+  console.log('Assessment progress saved to memory');
 }
 
 // Initialize on load
