@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    name: Validate HTML & JS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check HTML syntax
+        run: |
+          python3 -c "
+          from html.parser import HTMLParser
+          parser = HTMLParser()
+          with open('docs/index.html') as f:
+              parser.feed(f.read())
+          print('HTML: OK')
+          "
+
+      - name: Check JS syntax
+        run: node -c docs/app.js
+
+      - name: Check file sizes
+        run: |
+          echo "File sizes:"
+          ls -lh docs/
+          echo "Total:"
+          du -sh docs/
