@@ -2060,3 +2060,161 @@ textarea.form-control {
   color: var(--color-text-secondary);
   margin: 0;
 }
+/* ── Dashboard Stat Cards ──────────────────────────────────────────────────── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md, 1rem);
+  margin-bottom: var(--space-xl, 2rem);
+}
+@media (max-width: 768px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: 1fr; }
+}
+.mini-stat-card {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  transition: box-shadow 0.2s;
+}
+.mini-stat-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.mini-stat-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted, #6b7280);
+  margin-bottom: 0.5rem;
+}
+.mini-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary, #006c35);
+  line-height: 1.1;
+}
+.mini-stat-value.mini-stat-danger { color: #dc2626; }
+.mini-stat-value.mini-stat-purple { color: #7c3aed; }
+.mini-stat-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted, #9ca3af);
+  margin-top: 0.15rem;
+}
+.mini-stat-progress {
+  font-size: 0.75rem;
+  color: var(--primary, #006c35);
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+.mini-stat-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border-color, #e5e7eb);
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+.mini-stat-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--primary, #00a651);
+  transition: width 0.8s ease;
+}
+
+/* ── Charts Row ────────────────────────────────────────────────────────────── */
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg, 1.5rem);
+  margin-top: var(--space-lg, 1.5rem);
+}
+@media (max-width: 768px) {
+  .charts-row { grid-template-columns: 1fr; }
+}
+.charts-row .chart-container {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+.chart-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary, #1f2937);
+  margin-bottom: 0.75rem;
+}
+
+/* ── Mapping Summary Cards ─────────────────────────────────────────────────── */
+.mapping-cards-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-md, 1rem);
+  margin-bottom: var(--space-xl, 2rem);
+}
+@media (max-width: 900px) {
+  .mapping-cards-row { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .mapping-cards-row { grid-template-columns: repeat(2, 1fr); }
+}
+.mapping-summary-card {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.mapping-summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+.mapping-card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+.mapping-card-icon {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-family: 'Inter', sans-serif;
+  margin-top: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+.mapping-card-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary, #1f2937);
+  margin-bottom: 0.25rem;
+}
+.mapping-card-desc {
+  font-size: 0.7rem;
+  color: var(--text-muted, #6b7280);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.mapping-card-count {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: monospace;
+  padding: 0.15rem 0.6rem;
+  border-radius: 100px;
+}
+
+/* ── Page Subtitle ─────────────────────────────────────────────────────────── */
+.page-subtitle {
+  color: var(--text-muted, #6b7280);
+  font-size: 0.95rem;
+  margin-top: -0.5rem;
+  margin-bottom: var(--space-xl, 2rem);
+}

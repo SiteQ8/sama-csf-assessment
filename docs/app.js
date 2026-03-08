@@ -643,6 +643,12 @@ function renderResults() {
   // Radar chart
   renderRadarChart();
   
+  // Bar chart
+  renderBarChart();
+  
+  // Stat cards
+  renderStatCards();
+  
   // Gap analysis
   renderGapAnalysis();
   
@@ -668,19 +674,19 @@ function renderRadarChart() {
       datasets: [{
         label: lang === 'ar' ? 'المستوى الحالي' : 'Current Level',
         data: frameworkData.domains.map(d => scores[d.domain_id] || 0),
-        backgroundColor: 'rgba(30, 58, 138, 0.2)',
-        borderColor: 'rgba(30, 58, 138, 1)',
-        pointBackgroundColor: 'rgba(30, 58, 138, 1)',
+        backgroundColor: 'rgba(0, 166, 81, 0.15)',
+        borderColor: 'rgba(0, 166, 81, 1)',
+        pointBackgroundColor: 'rgba(0, 166, 81, 1)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(30, 58, 138, 1)'
+        pointHoverBorderColor: 'rgba(0, 166, 81, 1)'
       }, {
         label: lang === 'ar' ? 'الحد الأدنى المطلوب' : 'Minimum Required',
         data: [3, 3, 3, 3],
-        backgroundColor: 'rgba(5, 150, 105, 0.1)',
-        borderColor: 'rgba(5, 150, 105, 1)',
+        backgroundColor: 'rgba(220, 38, 38, 0.05)',
+        borderColor: 'rgba(220, 38, 38, 0.6)',
         borderDash: [5, 5],
-        pointBackgroundColor: 'rgba(5, 150, 105, 1)',
+        pointBackgroundColor: 'rgba(220, 38, 38, 0.6)',
         pointBorderColor: '#fff'
       }]
     },
@@ -703,6 +709,105 @@ function renderRadarChart() {
       }
     }
   });
+}
+
+function renderBarChart() {
+  const ctx = document.getElementById('barChart');
+  if (!ctx) return;
+  
+  const lang = appState.currentLang;
+  const scores = appState.assessmentData.scores;
+  
+  if (window.barChartInstance) {
+    window.barChartInstance.destroy();
+  }
+  
+  const domainColors = ['#00a651', '#0891b2', '#059669', '#d97706'];
+  
+  window.barChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: frameworkData.domains.map(d => lang === 'ar' ? d.name_ar : d.name_en),
+      datasets: [{
+        label: lang === 'ar' ? 'المستوى الحالي' : 'Current Level',
+        data: frameworkData.domains.map(d => scores[d.domain_id] || 0),
+        backgroundColor: domainColors.map(c => c + '80'),
+        borderColor: domainColors,
+        borderWidth: 2,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          beginAtZero: true,
+          max: 5,
+          ticks: { stepSize: 1 },
+          grid: { color: 'rgba(0,0,0,0.05)' }
+        },
+        y: {
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        annotation: {
+          annotations: {
+            line1: {
+              type: 'line',
+              xMin: 3, xMax: 3,
+              borderColor: '#dc2626',
+              borderWidth: 2,
+              borderDash: [6, 4],
+              label: {
+                display: true,
+                content: lang === 'ar' ? 'الحد الأدنى' : 'Level 3 min.',
+                position: 'start',
+                color: '#dc2626',
+                font: { size: 10 }
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function renderStatCards() {
+  const scores = appState.assessmentData.scores;
+  const responses = appState.assessmentData.responses;
+  const lang = appState.currentLang;
+  
+  // Overall maturity
+  const overallEl = document.getElementById('statOverallMaturity');
+  const maturityBar = document.getElementById('statMaturityBar');
+  if (overallEl) {
+    const overall = scores.overall || 0;
+    overallEl.textContent = overall.toFixed(1);
+    if (maturityBar) maturityBar.style.width = (overall / 5 * 100) + '%';
+  }
+  
+  // Controls assessed
+  const assessedCount = Object.keys(responses).length;
+  const totalQuestions = frameworkData.questions ? frameworkData.questions.length : 114;
+  const assessedEl = document.getElementById('statControlsAssessed');
+  const totalEl = document.getElementById('statControlsTotal');
+  const pctEl = document.getElementById('statControlsPct');
+  if (assessedEl) assessedEl.textContent = assessedCount;
+  if (totalEl) totalEl.textContent = '/ ' + totalQuestions;
+  if (pctEl) pctEl.textContent = Math.round(assessedCount / totalQuestions * 100) + '% ' + (lang === 'ar' ? 'مكتمل' : 'complete');
+  
+  // Gaps (below level 3)
+  const gaps = frameworkData.questions ? frameworkData.questions.filter(q => {
+    const r = responses[q.q_id];
+    return r && r.maturityLevel < 3;
+  }).length : 0;
+  const gapsEl = document.getElementById('statGaps');
+  if (gapsEl) gapsEl.textContent = gaps;
 }
 
 function renderGapAnalysis() {
