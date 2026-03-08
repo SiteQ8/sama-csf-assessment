@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="380" viewBox="0 0 900 380">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#011e12"/>
+      <stop offset="100%" stop-color="#032316"/>
+    </linearGradient>
+    <linearGradient id="green-glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00a651" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#00a651" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gold-line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00a651" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#00a651" stop-opacity="0.7"/>
+      <stop offset="70%" stop-color="#2ecc71" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#00a651" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="900" height="380" rx="12" fill="url(#bg)"/>
+  <rect x="0" y="0" width="900" height="3" rx="1" fill="url(#gold-line)"/>
+  
+  <!-- Subtle geometric pattern -->
+  <g opacity="0.04" stroke="#00a651" stroke-width="0.5">
+    <line x1="0" y1="60" x2="900" y2="60"/><line x1="0" y1="120" x2="900" y2="120"/>
+    <line x1="0" y1="180" x2="900" y2="180"/><line x1="0" y1="240" x2="900" y2="240"/>
+    <line x1="0" y1="300" x2="900" y2="300"/>
+    <line x1="150" y1="0" x2="150" y2="380"/><line x1="300" y1="0" x2="300" y2="380"/>
+    <line x1="450" y1="0" x2="450" y2="380"/><line x1="600" y1="0" x2="600" y2="380"/>
+    <line x1="750" y1="0" x2="750" y2="380"/>
+  </g>
+  
+  <ellipse cx="450" cy="140" rx="280" ry="120" fill="url(#green-glow)" opacity="0.2"/>
+  
+  <!-- Shield icon -->
+  <g transform="translate(450, 75)" opacity="0.9">
+    <path d="M0,-38 L32,-22 L32,12 Q32,34 0,46 Q-32,34 -32,12 L-32,-22 Z" 
+          fill="none" stroke="#00a651" stroke-width="2.5" opacity="0.7"/>
+    <path d="M0,-24 L20,-14 L20,8 Q20,22 0,30 Q-20,22 -20,8 L-20,-14 Z"
+          fill="#00a651" fill-opacity="0.15"/>
+    <text x="0" y="10" fill="#00a651" font-family="serif" font-size="26" font-weight="700" text-anchor="middle">✓</text>
+  </g>
+  
+  <!-- Title (English) -->
+  <text x="450" y="160" fill="#e8f5ee" font-family="Inter,system-ui,sans-serif" font-size="34" font-weight="700" text-anchor="middle" letter-spacing="2">SAMA CSF Assessment Tool</text>
+  
+  <!-- Arabic subtitle -->
+  <text x="450" y="192" fill="#00a651" font-family="Cairo,system-ui,sans-serif" font-size="16" text-anchor="middle" letter-spacing="1">أداة تقييم إطار الأمن السيبراني للبنك المركزي السعودي</text>
+  
+  <!-- Divider -->
+  <line x1="300" y1="210" x2="600" y2="210" stroke="#00a651" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Description -->
+  <text x="450" y="238" fill="#8fb5a0" font-family="Inter,system-ui,sans-serif" font-size="13" text-anchor="middle">Bilingual (AR/EN) · Interactive Assessment · Framework Mappings · Gap Analysis</text>
+  <text x="450" y="258" fill="#8fb5a0" font-family="Inter,system-ui,sans-serif" font-size="13" text-anchor="middle">4 Domains · 29 Objectives · 114 Sub-Controls · 6 Maturity Levels</text>
+  
+  <!-- Badge row -->
+  <rect x="145" y="280" width="80" height="26" rx="13" fill="#00a65120" stroke="#00a65150" stroke-width="1"/>
+  <text x="185" y="297" fill="#00a651" font-family="monospace" font-size="11" text-anchor="middle">v2.0</text>
+  
+  <rect x="240" y="280" width="110" height="26" rx="13" fill="#3b82f620" stroke="#3b82f650" stroke-width="1"/>
+  <text x="295" y="297" fill="#3b82f6" font-family="monospace" font-size="11" text-anchor="middle">Bilingual</text>
+  
+  <rect x="365" y="280" width="90" height="26" rx="13" fill="#8b5cf620" stroke="#8b5cf650" stroke-width="1"/>
+  <text x="410" y="297" fill="#8b5cf6" font-family="monospace" font-size="11" text-anchor="middle">Chart.js</text>
+  
+  <rect x="470" y="280" width="80" height="26" rx="13" fill="#06b6d420" stroke="#06b6d450" stroke-width="1"/>
+  <text x="510" y="297" fill="#06b6d4" font-family="monospace" font-size="11" text-anchor="middle">Offline</text>
+
+  <rect x="565" y="280" width="100" height="26" rx="13" fill="#f9731620" stroke="#f9731650" stroke-width="1"/>
+  <text x="615" y="297" fill="#f97316" font-family="monospace" font-size="11" text-anchor="middle">PDF Export</text>
+  
+  <rect x="680" y="280" width="70" height="26" rx="13" fill="#00a65120" stroke="#00a65150" stroke-width="1"/>
+  <text x="715" y="297" fill="#00a651" font-family="monospace" font-size="11" text-anchor="middle">MIT</text>
+  
+  <!-- Author -->
+  <text x="450" y="345" fill="#3d6b52" font-family="monospace" font-size="11" text-anchor="middle">by @SiteQ8 — Ali AlEnezi 🇰🇼 — For the Saudi &amp; GCC Cybersecurity Community</text>
+  
+  <rect x="0" y="377" width="900" height="3" rx="1" fill="url(#gold-line)"/>
+</svg>
