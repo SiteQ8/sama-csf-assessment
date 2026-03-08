@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAMA CSF Professional Assessment Tool v2.0</title>
+    <title>SAMA CSF Assessment Tool v2.0 | أداة تقييم إطار SAMA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -215,9 +215,42 @@
                     </div>
 
                     <div class="results-overview">
+                        <!-- Dashboard Stat Cards -->
+                        <div class="stats-row" id="statsRow">
+                            <div class="mini-stat-card">
+                                <div class="mini-stat-label" data-en="OVERALL MATURITY" data-ar="النضج العام">النضج العام</div>
+                                <div class="mini-stat-value" id="statOverallMaturity">—</div>
+                                <div class="mini-stat-sub">/ 5.0</div>
+                                <div class="mini-stat-bar"><div class="mini-stat-bar-fill" id="statMaturityBar" style="width:0%"></div></div>
+                            </div>
+                            <div class="mini-stat-card">
+                                <div class="mini-stat-label" data-en="CONTROLS ASSESSED" data-ar="الضوابط المُقيّمة">الضوابط المُقيّمة</div>
+                                <div class="mini-stat-value" id="statControlsAssessed">0</div>
+                                <div class="mini-stat-sub" id="statControlsTotal">/ 114</div>
+                                <div class="mini-stat-progress" id="statControlsPct">0% complete</div>
+                            </div>
+                            <div class="mini-stat-card">
+                                <div class="mini-stat-label" data-en="GAPS IDENTIFIED" data-ar="الفجوات المكتشفة">الفجوات المكتشفة</div>
+                                <div class="mini-stat-value mini-stat-danger" id="statGaps">0</div>
+                                <div class="mini-stat-sub" data-en="Below Level 3 minimum" data-ar="أقل من المستوى 3">أقل من المستوى 3</div>
+                            </div>
+                            <div class="mini-stat-card">
+                                <div class="mini-stat-label" data-en="FRAMEWORK MAPS" data-ar="توافق الأطر">توافق الأطر</div>
+                                <div class="mini-stat-value mini-stat-purple">5</div>
+                                <div class="mini-stat-sub">ISO · NIST · CIS · PCI · NCA</div>
+                            </div>
+                        </div>
+
                         <div class="score-card overall-score" id="overallScore"></div>
-                        <div class="chart-container" style="height: 400px;">
-                            <canvas id="radarChart"></canvas>
+                        <div class="charts-row">
+                            <div class="chart-container" style="height: 400px;">
+                                <h3 class="chart-title" data-en="Domain Maturity Radar" data-ar="رادار نضج المجالات">رادار نضج المجالات</h3>
+                                <canvas id="radarChart"></canvas>
+                            </div>
+                            <div class="chart-container" style="height: 400px;">
+                                <h3 class="chart-title" data-en="Maturity by Domain" data-ar="النضج حسب المجال">النضج حسب المجال</h3>
+                                <canvas id="barChart"></canvas>
+                            </div>
                         </div>
                     </div>
 
@@ -241,6 +274,46 @@
             <section class="section">
                 <div class="container">
                     <h1 class="page-title" data-en="Framework Mappings" data-ar="توافق الأطر">توافق الأطر</h1>
+                    <p class="page-subtitle" data-en="See how SAMA CSF aligns with international cybersecurity frameworks" data-ar="اطلع على توافق إطار SAMA مع الأطر الدولية للأمن السيبراني">اطلع على توافق إطار SAMA مع الأطر الدولية للأمن السيبراني</p>
+                    
+                    <!-- Framework Summary Cards -->
+                    <div class="mapping-cards-row" id="mappingCardsRow">
+                        <div class="mapping-summary-card" data-accent="#3b82f6">
+                            <div class="mapping-card-accent" style="background:#3b82f6"></div>
+                            <div class="mapping-card-icon" style="color:#3b82f6">ISO</div>
+                            <div class="mapping-card-name">ISO 27001:2022</div>
+                            <div class="mapping-card-desc" data-en="Information Security Management" data-ar="إدارة أمن المعلومات">إدارة أمن المعلومات</div>
+                            <div class="mapping-card-count" style="background:#3b82f610;color:#3b82f6" data-en="~93 mappings" data-ar="~93 توافق">~93 توافق</div>
+                        </div>
+                        <div class="mapping-summary-card" data-accent="#059669">
+                            <div class="mapping-card-accent" style="background:#059669"></div>
+                            <div class="mapping-card-icon" style="color:#059669">NIST</div>
+                            <div class="mapping-card-name">NIST CSF 2.0</div>
+                            <div class="mapping-card-desc" data-en="Cybersecurity Risk Management" data-ar="إدارة مخاطر الأمن السيبراني">إدارة مخاطر الأمن السيبراني</div>
+                            <div class="mapping-card-count" style="background:#05966910;color:#059669" data-en="~87 mappings" data-ar="~87 توافق">~87 توافق</div>
+                        </div>
+                        <div class="mapping-summary-card" data-accent="#7c3aed">
+                            <div class="mapping-card-accent" style="background:#7c3aed"></div>
+                            <div class="mapping-card-icon" style="color:#7c3aed">CIS</div>
+                            <div class="mapping-card-name">CIS Controls v8.1</div>
+                            <div class="mapping-card-desc" data-en="Practical Security Safeguards" data-ar="ضمانات أمنية عملية">ضمانات أمنية عملية</div>
+                            <div class="mapping-card-count" style="background:#7c3aed10;color:#7c3aed" data-en="~76 mappings" data-ar="~76 توافق">~76 توافق</div>
+                        </div>
+                        <div class="mapping-summary-card" data-accent="#dc2626">
+                            <div class="mapping-card-accent" style="background:#dc2626"></div>
+                            <div class="mapping-card-icon" style="color:#dc2626">PCI</div>
+                            <div class="mapping-card-name">PCI-DSS v4.0.1</div>
+                            <div class="mapping-card-desc" data-en="Payment Card Security" data-ar="أمن بطاقات الدفع">أمن بطاقات الدفع</div>
+                            <div class="mapping-card-count" style="background:#dc262610;color:#dc2626" data-en="~64 mappings" data-ar="~64 توافق">~64 توافق</div>
+                        </div>
+                        <div class="mapping-summary-card" data-accent="#d97706">
+                            <div class="mapping-card-accent" style="background:#d97706"></div>
+                            <div class="mapping-card-icon" style="color:#d97706">NCA</div>
+                            <div class="mapping-card-name">NCA ECC</div>
+                            <div class="mapping-card-desc" data-en="Saudi Critical Infrastructure" data-ar="البنية التحتية الحرجة السعودية">البنية التحتية الحرجة السعودية</div>
+                            <div class="mapping-card-count" style="background:#d9770610;color:#d97706" data-en="~58 mappings" data-ar="~58 توافق">~58 توافق</div>
+                        </div>
+                    </div>
                     
                     <div class="mapping-filters">
                         <div class="form-group">
@@ -348,8 +421,8 @@
                 </div>
                 <div class="footer-section">
                     <h3 data-en="Version" data-ar="الإصدار">الإصدار</h3>
-                    <p>v1.0.0</p>
-                    <p data-en="Open Source on GitHub" data-ar="مفتوح المصدر على GitHub">مفتوح المصدر على GitHub</p>
+                    <p>v2.0.0</p>
+                    <p><a href="https://github.com/SiteQ8/sama-csf-assessment" target="_blank" style="color: inherit; text-decoration: underline;" data-en="Open Source on GitHub" data-ar="مفتوح المصدر على GitHub">مفتوح المصدر على GitHub</a></p>
                 </div>
                 <div class="footer-section">
                     <h3 data-en="Educational Disclaimer" data-ar="إخلاء مسؤولية تعليمية">إخلاء مسؤولية تعليمية</h3>
@@ -357,7 +430,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 SAMA CSF Educational Tool. <span data-en="Made for cybersecurity professionals" data-ar="صُنعت لمحترفي الأمن السيبراني">صُنعت لمحترفي الأمن السيبراني</span></p>
+                <p>&copy; 2026 SAMA CSF Assessment Tool by <a href="https://github.com/SiteQ8" target="_blank" style="color:inherit;text-decoration:underline;">@SiteQ8</a>. <span data-en="Made with ❤️ for the Saudi & GCC Cybersecurity Community" data-ar="صنع بـ ❤️ للمجتمع السيبراني في السعودية والخليج">صنع بـ ❤️ للمجتمع السيبراني في السعودية والخليج</span></p>
             </div>
         </div>
     </footer>
