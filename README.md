@@ -263,5 +263,5 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 <p align="center">
   <sub>صنع بـ ❤️ للمجتمع السيبراني في السعودية والخليج</sub><br>
-  <sub>Built with ❤️ for the Saudi & GCC Cybersecurity Community by <a href="https://github.com/SiteQ8">@SiteQ8</a> — Ali AlEnezi 🇰🇼</sub>
+  <sub>Built for the Saudi & GCC Cybersecurity Community by <a href="https://github.com/SiteQ8">@SiteQ8</a> — Ali AlEnezi 🇰🇼</sub>
 </p>
