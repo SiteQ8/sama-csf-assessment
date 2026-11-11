@@ -33,13 +33,13 @@
 
 ## Overview
 
-An interactive educational tool for assessing compliance with the Saudi Central Bank (SAMA) Cybersecurity Framework. Built as a pure client-side application — **no server required, all data stays in your browser**.
+An interactive educational tool for assessing compliance with the Saudi Central Bank (SAMA) Cybersecurity Framework. Built as a pure client-side application, **no server required, all data stays in your browser**.
 
 > Built for the **Saudi & GCC Cybersecurity Community** 🇸🇦🇰🇼🇦🇪🇧🇭🇶🇦🇴🇲
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### Interactive Dashboard
 Real-time maturity radar, domain bar charts, gap identification, and framework mapping stats.
@@ -64,14 +64,14 @@ Cross-reference SAMA CSF with ISO 27001, NIST CSF 2.0, CIS Controls, PCI-DSS, an
 
 ---
 
-## 📋 SAMA CSF Framework Structure
+## SAMA CSF Framework Structure
 
 | Component | Count |
 |-----------|-------|
 | Core Domains | 4 |
 | Control Objectives | 29 |
 | Sub-Controls | 114 |
-| Maturity Levels | 6 (0–5) |
+| Maturity Levels | 6 (0-5) |
 
 ### Domains
 
@@ -97,7 +97,7 @@ Cross-reference SAMA CSF with ISO 27001, NIST CSF 2.0, CIS Controls, PCI-DSS, an
 
 ---
 
-## ✨ Features | المميزات
+## Features | المميزات
 
 | Feature | Description | الوصف |
 |---------|-------------|-------|
@@ -113,7 +113,7 @@ Cross-reference SAMA CSF with ISO 27001, NIST CSF 2.0, CIS Controls, PCI-DSS, an
 
 ---
 
-## 🚀 Getting Started | البدء
+## Getting Started | البدء
 
 ### GitHub Pages (Recommended)
 
@@ -137,11 +137,11 @@ python3 -m http.server 8080 -d docs
 
 Open [http://localhost:8080](http://localhost:8080)
 
-> **Zero dependencies** — no npm, no build tools. Just open the HTML file.
+> **Zero dependencies**, no npm, no build tools. Just open the HTML file.
 
 ---
 
-## 🔗 Framework Mappings
+## Framework Mappings
 
 SAMA CSF maps to 5 international frameworks:
 
@@ -155,7 +155,7 @@ SAMA CSF maps to 5 international frameworks:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Component | Technology |
 |-----------|-----------|
@@ -170,7 +170,7 @@ SAMA CSF maps to 5 international frameworks:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 sama-csf-assessment/
@@ -189,7 +189,7 @@ sama-csf-assessment/
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [ ] Additional assessment questions with deeper control granularity
 - [ ] Evidence attachment support per control
@@ -202,7 +202,7 @@ sama-csf-assessment/
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions from the GCC cybersecurity community are welcome!
 
@@ -210,23 +210,23 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ### Areas for Contribution
 
-- 📝 **Assessment Questions** — Add or improve control descriptions
-- 🌐 **Translation** — Improve Arabic translations
-- 🔗 **Mappings** — Refine framework cross-references
-- 🎨 **UI/UX** — Interface improvements and accessibility
-- 📊 **Charts** — New visualization types
-- 📄 **Reports** — Enhanced PDF/Excel export
-- 🐛 **Bug Fixes** — Issue resolution
+- **Assessment Questions**: Add or improve control descriptions
+- **Translation**: Improve Arabic translations
+- **Mappings**: Refine framework cross-references
+- **UI/UX**: Interface improvements and accessibility
+- **Charts**: New visualization types
+- **Reports**: Enhanced PDF/Excel export
+- **Bug Fixes**: Issue resolution
 
 ---
 
-## 🔒 Security
+## Security
 
 See [SECURITY.md](SECURITY.md) for our security policy.
 
 ---
 
-## ⚠️ Disclaimer | إخلاء المسؤولية
+## Disclaimer | إخلاء المسؤولية
 
 <div dir="rtl">
 
@@ -244,7 +244,7 @@ See [SECURITY.md](SECURITY.md) for our security policy.
 
 ---
 
-## 📚 Resources | المصادر
+## Resources | المصادر
 
 - [SAMA Cybersecurity Framework (PDF)](https://www.sama.gov.sa/en-US/Laws/Pages/CyberSecurityFramework.aspx)
 - [ISO/IEC 27001:2022](https://www.iso.org/standard/27001)
@@ -255,13 +255,13 @@ See [SECURITY.md](SECURITY.md) for our security policy.
 
 ---
 
-## 📄 License
+## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+MIT License, see [LICENSE](LICENSE) for details.
 
 ---
 
 <p align="center">
   <sub>صنع بـ ❤️ للمجتمع السيبراني في السعودية والخليج</sub><br>
-  <sub>Built for the Saudi & GCC Cybersecurity Community by <a href="https://github.com/SiteQ8">@SiteQ8</a> — Ali AlEnezi 🇰🇼</sub>
+  <sub>Built for the Saudi & GCC Cybersecurity Community by <a href="https://github.com/SiteQ8">@SiteQ8</a>, Ali AlEnezi 🇰🇼</sub>
 </p>
