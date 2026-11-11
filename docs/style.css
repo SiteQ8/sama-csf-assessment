@@ -739,7 +739,7 @@ select.form-control {
 
 /* END PERPLEXITY DESIGN SYSTEM */
 :root {
-  /* Professional Brand Colors */
+  /* Brand Colors */
   --color-primary: #1e3a8a;
   --color-primary-hover: #1e40af;
   --color-primary-active: #1e3a8a;
@@ -1824,7 +1824,7 @@ textarea.form-control {
   display: none !important;
 }
 
-/* Professional Enhancements */
+/* Extra styles */
 .assessment-timer {
   position: fixed;
   bottom: var(--space-lg);
@@ -1870,7 +1870,7 @@ textarea.form-control {
   letter-spacing: 0.05em;
 }
 
-/* Enhanced Gap Items */
+/* Gap Items */
 .gap-item {
   position: relative;
   padding-left: var(--space-xl);
@@ -1898,7 +1898,7 @@ textarea.form-control {
   z-index: 10;
 }
 
-/* Professional Table Styling */
+/* Table Styling */
 .assessment-table {
   width: 100%;
   border-collapse: collapse;
